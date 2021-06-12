@@ -4,18 +4,16 @@
 🃏🗯
 
 Add custom message to Jest expects
+
 </div>
 
 <hr />
 
-[![Build Status](https://img.shields.io/travis/mattphillips/jest-expect-message.svg?style=flat-square)](https://travis-ci.org/mattphillips/jest-expect-message)
-[![Code Coverage](https://img.shields.io/codecov/c/github/mattphillips/jest-expect-message.svg?style=flat-square)](https://codecov.io/github/mattphillips/jest-expect-message)
 [![version](https://img.shields.io/npm/v/jest-expect-message.svg?style=flat-square)](https://www.npmjs.com/package/jest-expect-message)
-[![downloads](https://img.shields.io/npm/dm/jest-expect-message.svg?style=flat-square)](http://npm-stat.com/charts.html?package=jest-expect-message&from=2017-09-14)
-[![MIT License](https://img.shields.io/npm/l/jest-expect-message.svg?style=flat-square)](https://github.com/mattphillips/jest-expect-message/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/npm/l/jest-expect-message.svg?style=flat-square)](https://github.com/jason0x43/jest-expect-message/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Roadmap](https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square)](https://github.com/mattphillips/jest-expect-message/blob/master/docs/ROADMAP.md)
-[![Examples](https://img.shields.io/badge/%F0%9F%92%A1-examples-ff615b.svg?style=flat-square)](https://github.com/mattphillips/jest-expect-message/blob/master/docs/EXAMPLES.md)
+
+**Note:** This is a fork of [mattphillips/jest-expect-message](https://github.com/mattphillips/jest-expect-message) with TS source and updates for Jest 27.
 
 ## Problem
 
@@ -65,11 +63,13 @@ With `jest-expect-message` this will fail with your custom error message:
 ## Installation
 
 With npm:
+
 ```sh
 npm install --save-dev jest-expect-message
 ```
 
 With yarn:
+
 ```sh
 yarn add -D jest-expect-message
 ```
@@ -97,9 +97,9 @@ Add `jest-expect-message` to your Jest `setupFilesAfterEnv` configuration.
 
 ## Usage
 
- - `expect(actual, message)`
-   - `actual`: The value you would normally pass into an `expect` to assert against with a given matcher.
-   - `message`: String, the custom message you want to be printed should the `expect` fail.
+- `expect(actual, message)`
+  - `actual`: The value you would normally pass into an `expect` to assert against with a given matcher.
+  - `message`: String, the custom message you want to be printed should the `expect` fail.
 
 ```js
 test('returns 2 when adding 1 and 1', () => {
@@ -113,9 +113,9 @@ test('returns 2 when adding 1 and 1', () => {
 <!-- prettier-ignore -->
 | [<img src="https://avatars0.githubusercontent.com/u/5610087?v=4" width="100px;"/><br /><sub><b>Matt Phillips</b></sub>](http://mattphillips.io)<br />[💻](https://github.com/mattphillips/jest-expect-message/commits?author=mattphillips "Code") [📖](https://github.com/mattphillips/jest-expect-message/commits?author=mattphillips "Documentation") [💡](#example-mattphillips "Examples") [🤔](#ideas-mattphillips "Ideas, Planning, & Feedback") [🚇](#infra-mattphillips "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/mattphillips/jest-expect-message/commits?author=mattphillips "Tests") [🔧](#tool-mattphillips "Tools") |
 | :---: |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## LICENSE
 
 [MIT](/LICENSE)
-

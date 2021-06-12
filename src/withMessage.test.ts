@@ -7,8 +7,8 @@ describe('withMessage()', () => {
     expect.assertions(3);
     const toBeMock = jest.fn();
     const expectMock = jest.fn(() => ({ toBe: toBeMock }));
-    expectMock.any = 'any';
-    const newExpect = withMessage(expectMock);
+    (expectMock as any).any = 'any';
+    const newExpect = withMessage(expectMock as unknown as jest.Expect);
     newExpect(ACTUAL, 'should fail').toBe(ACTUAL);
     expect(newExpect.any).toBe('any');
     expect(expectMock).toHaveBeenCalledWith(ACTUAL);
@@ -20,7 +20,7 @@ describe('withMessage()', () => {
     const toBeMock = jest.fn();
     const expectMock = jest.fn(() => ({ toBe: toBeMock }));
 
-    withMessage(expectMock)(ACTUAL, 'should fail').toBe(ACTUAL);
+    withMessage(expectMock as unknown as jest.Expect)(ACTUAL, 'should fail').toBe(ACTUAL);
     expect(expectMock).toHaveBeenCalledWith(ACTUAL);
     expect(toBeMock).toHaveBeenCalledWith(ACTUAL);
   });
@@ -30,7 +30,7 @@ describe('withMessage()', () => {
     const toBeMock = jest.fn();
     const expectMock = jest.fn(() => ({ not: { toBe: toBeMock } }));
 
-    withMessage(expectMock)(ACTUAL, 'should fail').not.toBe(1);
+    withMessage(expectMock as unknown as jest.Expect)(ACTUAL, 'should fail').not.toBe(1);
     expect(expectMock).toHaveBeenCalledWith(ACTUAL);
     expect(toBeMock).toHaveBeenCalledWith(1);
   });
@@ -44,7 +44,7 @@ describe('withMessage()', () => {
     const expectMock = jest.fn(() => ({ toBe: toBeMock }));
 
     try {
-      withMessage(expectMock)(ACTUAL, message).toBe(1);
+      withMessage(expectMock as unknown as jest.Expect)(ACTUAL, message).toBe(1);
     } catch (e) {
       expect(e).toBe(originalError);
       expect(expectMock).toHaveBeenCalledWith(ACTUAL);
@@ -61,7 +61,7 @@ describe('withMessage()', () => {
     const expectMock = jest.fn(() => ({ toBe: toBeMock }));
 
     try {
-      withMessage(expectMock)(ACTUAL, 'should fail').toBe(1);
+      withMessage(expectMock as unknown as jest.Expect)(ACTUAL, 'should fail').toBe(1);
     } catch (e) {
       expect(e).toBe(originalError);
       expect(expectMock).toHaveBeenCalledWith(ACTUAL);
@@ -71,7 +71,7 @@ describe('withMessage()', () => {
 
   test('throws error with custom message when matcher fails', () => {
     expect.assertions(4);
-    const originalError = new Error('Boo');
+    const originalError: Error & { matcherResult?: any } = new Error('Boo');
     originalError.matcherResult = {
       actual: ACTUAL,
       expected: 1,
@@ -85,7 +85,7 @@ describe('withMessage()', () => {
     const expectMock = jest.fn(() => ({ toBe: toBeMock }));
 
     try {
-      withMessage(expectMock)(ACTUAL, 'should fail').toBe(1);
+      withMessage(expectMock as unknown as jest.Expect)(ACTUAL, 'should fail').toBe(1);
     } catch (e) {
       expect(e.matcherResult).toMatchObject({
         actual: ACTUAL,
@@ -100,7 +100,7 @@ describe('withMessage()', () => {
 
   test('throws error with custom message when not matcher fails', () => {
     expect.assertions(4);
-    const originalError = new Error('Boo');
+    const originalError: Error & { matcherResult?: any } = new Error('Boo');
     originalError.matcherResult = {
       actual: ACTUAL,
       expected: 1,
@@ -114,7 +114,7 @@ describe('withMessage()', () => {
     const expectMock = jest.fn(() => ({ not: { toBe: toBeMock } }));
 
     try {
-      withMessage(expectMock)(ACTUAL, 'should fail').not.toBe(ACTUAL);
+      withMessage(expectMock as unknown as jest.Expect)(ACTUAL, 'should fail').not.toBe(ACTUAL);
     } catch (e) {
       expect(e.matcherResult).toMatchObject({
         actual: ACTUAL,
@@ -130,10 +130,10 @@ describe('withMessage()', () => {
   it('calls original expect.extend when custom matcher is registered', () => {
     const extendMock = jest.fn();
     const expectMock = jest.fn();
-    expectMock.extend = extendMock;
-    const newMatcher = { newMatcher: 'woo' };
+    (expectMock as unknown as jest.Expect).extend = extendMock;
+    const newMatcher = { newMatcher: 'woo' as unknown as jest.CustomMatcher};
 
-    withMessage(expectMock).extend(newMatcher);
+    withMessage(expectMock as unknown as jest.Expect).extend(newMatcher);
 
     expect(extendMock).toHaveBeenCalledTimes(1);
     expect(extendMock).toHaveBeenCalledWith(newMatcher);
@@ -144,9 +144,9 @@ describe('withMessage()', () => {
     const extendMock = jest.fn(o => Object.assign(expectMock, o));
     expectMock.a = 'a';
     expectMock.extend = extendMock;
-    const newMatcher = { newMatcher: 'woo' };
+    const newMatcher = { newMatcher: 'woo' as unknown as jest.CustomMatcher };
 
-    const actual = withMessage(expectMock);
+    const actual = withMessage(expectMock as unknown as jest.Expect);
 
     expect(actual).toContainAllKeys(['a', 'extend']);
 

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jest-expect-message should fail with custom message 1`] = `"matcherResult.message is not a function"`;
+
+exports[`jest-expect-message should fail without custom message 1`] = `"result.message is not a function"`;
+
+exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 1`] = `"matcherResult.message is not a function"`;
+
+exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 2`] = `"matcherResult.message is not a function"`;

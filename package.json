@@ -1,17 +1,17 @@
 {
-  "name": "jest-expect-message",
-  "version": "1.0.2",
+  "name": "@jason0x43/jest-expect-message",
+  "version": "1.0.3",
   "description": "Add custom message to Jest expects",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist --ignore *.test.js",
+    "build": "tsc",
     "contributor": "all-contributors add",
     "contributor:gen": "all-contributors generate",
     "lint": "eslint src",
     "lint:fix": "yarn lint --fix",
     "precommit": "lint-staged",
     "prepublishOnly": "yarn build",
-    "prettier": "prettier 'src/**/*.js' --write --single-quote=true --print-width=120",
+    "prettier": "prettier 'src/**/*.ts' --write --single-quote=true --print-width=120",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
     "test:report": "codecov"
@@ -24,47 +24,56 @@
     "assertions",
     "test"
   ],
-  "author": "Matt Phillips <matt@mattphillips.io> mattphillips.io",
+  "author": "Jason Cheatham <jason@jasoncheatham.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattphillips/jest-expect-message.git"
+    "url": "git+https://github.com/jason0x43/jest-expect-message.git"
   },
   "bugs": {
-    "url": "https://github.com/mattphillips/jest-expect-message/issues"
+    "url": "https://github.com/jason0x43/jest-expect-message/issues"
   },
-  "homepage": "https://github.com/mattphillips/jest-expect-message#readme",
+  "homepage": "https://github.com/jason0x43/jest-expect-message#readme",
   "devDependencies": {
-    "all-contributors-cli": "^5.4.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "all-contributors-cli": "^6.20.0",
     "codecov": "^3.0.4",
-    "eslint": "^5.3.0",
+    "eslint": "^7.28.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.18.0",
-    "husky": "^0.14.3",
-    "jest": "^23.4.2",
-    "jest-extended": "^0.8.1",
-    "lint-staged": "^7.2.0",
-    "prettier": "^1.14.0"
+    "eslint-plugin-jest": "^24.3.6",
+    "husky": "^6.0.0",
+    "jest": "^27.0.4",
+    "jest-extended": "^0.11.5",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.1",
+    "typescript": "^4.3.2"
   },
   "lint-staged": {
-    "*.js": [
-      "yarn prettier",
-      "git add"
+    "*.ts": [
+      "prettier --write"
     ]
   },
   "babel": {
-    "plugins": [
-      "transform-es2015-modules-commonjs",
-      "transform-object-rest-spread"
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "@babel/preset-typescript"
     ]
   },
   "jest": {
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "jest-extended"
+	"setupFilesAfterEnv": ["jest-extended"]
   }
 }

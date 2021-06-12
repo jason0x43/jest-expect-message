@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-elsint/parser",
   "env": {
     "node": true,
     "es6": true,
@@ -16,7 +16,10 @@
     "import",
     "jest"
   ],
-  "extends": "eslint:recommended",
+  "extends": [
+	  "eslint:recommended",
+	  "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
     "comma-spacing": [1, {"before": false, "after": true}],
     "eol-last": 1,
