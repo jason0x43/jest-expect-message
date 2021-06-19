@@ -1,7 +1,11 @@
-class JestAssertionError extends Error {
-  matcherResult: jest.CustomMatcherResult;
+interface HasMessage {
+  message: string | (() => string);
+}
 
-  constructor(result: jest.CustomMatcherResult, callsite: Function) {
+class JestAssertionError extends Error {
+  matcherResult: HasMessage;
+
+  constructor(result: HasMessage, callsite: Function) {
     const { message } = result;
     super(typeof message === 'function' ? message() : message);
 
@@ -25,14 +29,11 @@ function wrapMatcher<
     try {
       return matcher(...args);
     } catch (error) {
-      if (!error.matcherResult) {
+      if (typeof customMessage !== 'string' || customMessage.length < 1) {
         throw error;
       }
-      const { matcherResult } = error;
 
-      if (typeof customMessage !== 'string' || customMessage.length < 1) {
-        throw new JestAssertionError(matcherResult, newMatcher);
-      }
+      const matcherResult = error?.matcherResult ?? error;
 
       const resultMessage =
         typeof matcherResult.message === 'function'
@@ -84,4 +85,18 @@ export default function (expect: jest.Expect): jest.Expect {
   };
 
   return expectProxy;
+}
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      expect: jest.Expect;
+    }
+  }
+
+  namespace jest {
+    interface Expect {
+      <T = unknown>(actual: T, message?: string): jest.JestMatchers<T>;
+    }
+  }
 }

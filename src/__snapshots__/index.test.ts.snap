@@ -1,9 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jest-expect-message should fail with custom message 1`] = `"matcherResult.message is not a function"`;
+exports[`jest-expect-message should fail with custom message 1`] = `
+"Woah this should be false!
 
-exports[`jest-expect-message should fail without custom message 1`] = `"result.message is not a function"`;
+[2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
 
-exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 1`] = `"matcherResult.message is not a function"`;
+Received: [31mfalse[39m"
+`;
 
-exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 2`] = `"matcherResult.message is not a function"`;
+exports[`jest-expect-message should fail without custom message 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+Received: [31mfalse[39m"
+`;
+
+exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 1`] = `
+"100 % 3 === 1
+
+expected 100 to be divisible by 3"
+`;
+
+exports[`jest-expect-message supports custom matchers registered after jest-expect-message allows new custom matchers to use custom messages 2`] = `
+"101 % 1 === 0
+
+expected 101 not to be divisible by 1"
+`;
