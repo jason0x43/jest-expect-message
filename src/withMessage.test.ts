@@ -1,3 +1,4 @@
+import 'jest-extended';
 import withMessage from './withMessage';
 
 describe('withMessage()', () => {
