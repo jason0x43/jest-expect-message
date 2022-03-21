@@ -47,26 +47,19 @@ function wrapMatcher<
   };
 }
 
-function wrapMatchers<R, T>(
+function wrapMatchers<R, T extends (...args: any[]) => any>(
   matchers: jest.Matchers<R, T>,
   customMessage?: string
 ): jest.Matchers<R, T> {
-  return Object.keys(matchers).reduce((allMatchers, name) => {
-    const matcher = matchers[name as keyof typeof matchers];
-
-    if (typeof matcher === 'function') {
-      return {
-        ...allMatchers,
-        [name]: wrapMatcher(matcher, customMessage),
-      };
-    }
-
-    return {
-      ...allMatchers,
-      // recurse on .not/.resolves/.rejects
-      [name]: wrapMatchers(matcher, customMessage),
-    };
-  }, {} as jest.Matchers<R, T>);
+  const wrapped: Record<string, any> = {};
+  for (const name in matchers) {
+    const matcher = (matchers as unknown as Record<string, any>)[name]!;
+    wrapped[name] =
+      typeof matcher === 'function'
+        ? wrapMatcher(matcher, customMessage)
+        : wrapMatchers(matcher, customMessage);
+  }
+  return wrapped as unknown as jest.Matchers<R, T>;
 }
 
 export default function (expect: jest.Expect): jest.Expect {
